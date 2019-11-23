@@ -653,6 +653,8 @@ elif check_define __NetBSD__; then
   targetos='NetBSD'
 elif check_define __APPLE__; then
   targetos='Darwin'
+elif check_define __CYGWIN__; then
+  targetos='Cygwin'
 else
   # This is a fatal error, but don't report it yet, because we
   # might be going to just print the --help text, or it might
