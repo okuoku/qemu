@@ -38,6 +38,7 @@
 #include <poll.h>
 #endif
 #include <libusb.h>
+#undef JOB_STATUS_PAUSED
 
 #include "qapi/error.h"
 #include "migration/vmstate.h"
