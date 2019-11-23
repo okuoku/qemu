@@ -504,6 +504,7 @@ debug_mutex="no"
 libpmem=""
 default_devices="yes"
 plugins="no"
+cygwin="no"
 
 supported_cpu="no"
 supported_os="no"
@@ -891,6 +892,9 @@ Linux)
   QEMU_INCLUDES="-I\$(SRC_PATH)/linux-headers -I$PWD/linux-headers $QEMU_INCLUDES"
   supported_os="yes"
   libudev="yes"
+;;
+Cygwin)
+  cygwin="yes"
 ;;
 esac
 
@@ -6194,7 +6198,7 @@ fi
 tools=""
 if test "$want_tools" = "yes" ; then
   tools="qemu-img\$(EXESUF) qemu-io\$(EXESUF) qemu-edid\$(EXESUF) $tools"
-  if [ "$linux" = "yes" -o "$bsd" = "yes" -o "$solaris" = "yes" ] ; then
+  if [ "$linux" = "yes" -o "$bsd" = "yes" -o "$solaris" = "yes" -o "$cygwin" = "yes" ] ; then
     tools="qemu-nbd\$(EXESUF) $tools"
   fi
   if [ "$ivshmem" = "yes" ]; then
