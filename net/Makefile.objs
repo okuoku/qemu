@@ -24,7 +24,12 @@ tap-obj-$(CONFIG_LINUX) = tap-linux.o
 tap-obj-$(CONFIG_BSD) = tap-bsd.o
 tap-obj-$(CONFIG_SOLARIS) = tap-solaris.o
 tap-obj-y ?= tap-stub.o
+
+ifeq ($(CONFIG_CYGWIN),y)
+common-obj-y += tap-win32.o
+else
 common-obj-$(CONFIG_POSIX) += tap.o $(tap-obj-y)
+endif
 common-obj-$(CONFIG_WIN32) += tap-win32.o
 
 vde.o-libs = $(VDE_LIBS)

@@ -6737,6 +6737,9 @@ fi
 if test "$haiku" = "yes" ; then
   echo "CONFIG_HAIKU=y" >> $config_host_mak
 fi
+if test "$cygwin" = "yes" ; then
+  echo "CONFIG_CYGWIN=y" >> $config_host_mak
+fi
 if test "$static" = "yes" ; then
   echo "CONFIG_STATIC=y" >> $config_host_mak
 fi
