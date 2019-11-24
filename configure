@@ -894,6 +894,7 @@ Linux)
   libudev="yes"
 ;;
 Cygwin)
+  QEMU_CFLAGS="-D_WIN64 $QEMU_CFLAGS"
   cygwin="yes"
 ;;
 esac
