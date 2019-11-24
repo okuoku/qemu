@@ -137,7 +137,11 @@ void *qemu_ram_mmap(int fd,
     /* Always align to host page size */
     assert(align >= pagesize);
 
+#ifdef __CYGWIN__
+    flags = 0;
+#else
     flags = MAP_FIXED;
+#endif
     flags |= fd == -1 ? MAP_ANONYMOUS : 0;
     flags |= shared ? MAP_SHARED : MAP_PRIVATE;
     if (shared && is_pmem) {
