@@ -4468,10 +4468,8 @@ fi
 # signalfd probe
 signalfd="no"
 cat > $TMPC << EOF
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <signal.h>
-int main(void) { return syscall(SYS_signalfd, -1, NULL, _NSIG / 8); }
+#include <sys/signalfd.h>
+int main(void) { return signalfd(-1, NULL, 0); }
 EOF
 
 if compile_prog "" "" ; then
