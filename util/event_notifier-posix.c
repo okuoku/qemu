@@ -49,9 +49,15 @@ int event_notifier_init(EventNotifier *e, int active)
         if (errno != ENOSYS) {
             return -errno;
         }
+#ifdef __CYGWIN__
+        if (socketpair(AF_UNIX, SOCK_STREAM, 0, fds) < 0) {
+            return -errno;
+        }
+#else
         if (qemu_pipe(fds) < 0) {
             return -errno;
         }
+#endif
         ret = fcntl_setfl(fds[0], O_NONBLOCK);
         if (ret < 0) {
             ret = -errno;
@@ -97,7 +103,14 @@ int event_notifier_set(EventNotifier *e)
     ssize_t ret;
 
     do {
+#ifdef __CYGWIN__
+#ifdef CONFIG_EVENTFD
+#error Huh?
+#endif
+        ret = write(e->wfd, &value, 1);
+#else
         ret = write(e->wfd, &value, sizeof(value));
+#endif
     } while (ret < 0 && errno == EINTR);
 
     /* EAGAIN is fine, a read must be pending.  */
